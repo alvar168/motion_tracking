@@ -1,6 +1,10 @@
 import flask
 from flask import request, jsonify
-import random
+
+x = 0
+y = 0
+z = 0
+a = 0
 
 app = flask.Flask(__name__)
 app.config['DEBUG'] = True
@@ -10,25 +14,24 @@ def home():
     return '''<h1>API</h1>'''
 
 
-@app.route('/api/resources/rgb', methods=['GET'])
+@app.route('/api/resources/rgb', methods=['GET', 'POST'])
 def handleRGB():
-    # if request.method == 'GET':
-    red = random.randint(0,255)
-    blue = random.randint(0,255)
-    green = random.randint(0,255)
-    return jsonify({"r": red, "g": green, "b": blue})
+    global x, y, z, a
+    if request.method == 'GET':
+        return jsonify({"x": x, "y": y, "z": z, "a": a})
     
-    # elif request.method == 'POST':
-    #     params = request.json
-    #     # Ensure that all values are present and convert to integers
-    #     red = int(params.get('red', red))
-    #     blue = int(params.get('blue', blue))
-    #     green = int(params.get('green', green))
-    #     return "data added to db"
+    elif request.method == 'POST':
+        params = request.json
+        x = int(params.get('x'))
+        y = int(params.get('y'))
+        z = int(params.get('z'))
+        a = x + y
+        print(f'Response:\n\tx: {x}, y: {y}, z: {z}, a: {a}')
+        return "Data received!"
     
-    # else:
-    #     print("something went horribly wrong!")
-    #     return
+    else:
+        print("something went horribly wrong!")
+        return
 
 
 @app.errorhandler(404)
