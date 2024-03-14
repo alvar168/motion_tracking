@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     start_time = time.time()
-    response = requests.get('http://192.168.4.157:5000')
+    response = requests.get('http://192.168.4.36:5000')
     end_time = time.time()
     latency = end_time - start_time
     return f'Latency: {latency} seconds'

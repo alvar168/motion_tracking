@@ -35,4 +35,4 @@ def handleRGB():
 def page_not_found(e):
     return 404
 
-app.run(debug=True, use_reloader = False)
+app.run(host='0.0.0.0')
